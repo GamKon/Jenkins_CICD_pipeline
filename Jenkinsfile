@@ -4,7 +4,7 @@ pipeline {
         stage("init") {
             steps {
                 script {
-                    echo "$BRANCH_NAME initializing..."
+                    echo "$BRANCH_NAME initializing...."
                 }
             }
         }
