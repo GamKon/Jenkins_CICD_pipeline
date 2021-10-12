@@ -8,14 +8,14 @@ pipeline {
             steps {
                 script {
                     echo "$BRANCH_NAME initializing...."
+                        ext_gv_scripts = load "script.groovy"
                 }
             }
         }
         stage("build jar") {
             steps {
                 script {
-                    echo "building jar"
-                    sh 'mvn package'
+                    ext_gv_scripts.buildJar()
                 }
             }
         }
@@ -27,17 +27,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "building docker image"
-                    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t gamkon61/gamkon-repo:jma-1.0 .'
-                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh 'docker push gamkon61/gamkon-repo:jma-1.0'
-                    }
-                    withCredentials([usernamePassword(credentialsId: 'nexus_docker_repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t nexus-srv:8083/java-maven-app:1.0 .'
-                        sh "echo $PASS | docker login -u $USER --password-stdin nexus-srv:8083"
-                        sh 'docker push nexus-srv:8083/java-maven-app:1.0'
-                    }
+                    ext_gv_scripts.buildImage()
                 }
             }
         }
@@ -49,7 +39,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "deploying"
+                    ext_gv_scripts.deployApp()
                 }
             }
         }
