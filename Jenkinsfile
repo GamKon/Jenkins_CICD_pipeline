@@ -41,9 +41,6 @@ pipeline {
                 }
             }
         }
-
-
-        nexus-srv:8082
         stage("deploy") {
             when {
                 expression {
