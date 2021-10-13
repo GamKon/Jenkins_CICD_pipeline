@@ -6,7 +6,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "feature/activate_TF_step"
+        BRANCH_TO_DEPLOY = "main"
     }
     stages {
         stage("init") {
@@ -17,7 +17,7 @@ pipeline {
                 }
             }
         }
-        stage("build jar") {
+        stage("build_jar") {
             steps {
                 script {
 //                    echo "buildJar!!!!!!!!!!!!!"
@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        stage("build docker image") {
+        stage("build_docker_image") {
             when {
                 expression {
                     BRANCH_NAME == BRANCH_TO_DEPLOY
