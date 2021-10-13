@@ -43,7 +43,7 @@ def deployApp() {
     def docker_command = "docker run -p 8080:8080 -d gamkon-repo:jma-1.0"
 // ${APP_IMAGE_NAME}"   
 // ${EC2_PUBLIC_IP}
-    sshagent(credentials: ['key_for_ec2_ppk']) {
+    sshagent(credentials: ['key_for_ec2']) {
         sh "ssh -o StrictHostKeyChecking=no ec2-user@35.182.226.1 ${docker_command}"
     }
 } 
