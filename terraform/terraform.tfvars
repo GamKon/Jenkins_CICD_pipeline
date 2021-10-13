@@ -1,5 +1,5 @@
-region_project_in = "us-east-1"
-az_project_in     = "us-east-1a"
+#region_project_in = "us-east-1"
+#az_project_in     = "us-east-1a"
 
 ip_for_ssh_inbound_connection = "0.0.0.0/0"
 ports_to_open         = ["80", "443", "8080"]
