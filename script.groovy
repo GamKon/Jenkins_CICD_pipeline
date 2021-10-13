@@ -6,7 +6,7 @@ def buildJar() {
 
 def buildImage() {
     echo "_____________________________________________________"
-    echo "Building the docker image..."
+    echo "Building&Pushing the docker image..."
 //  Push to dockerhub 
 //temporary turned off to save time
 //    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
@@ -24,6 +24,7 @@ def buildImage() {
 
 def deployApp() {
     echo "_____________________________________________________"
+    
     echo 'deploying the application...'
 } 
 
