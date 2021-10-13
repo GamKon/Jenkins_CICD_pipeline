@@ -31,9 +31,9 @@ def runTerraform() {
         sh "terraform init"
         sh "terraform apply --auto-approve"
 //        $EC2_PUBLIC_IP = sh(
-            script: 'terraform output Server-1-public-IP',
-            returnStdout: true
-        ).trim()
+//            script: 'terraform output Server-1-public-IP',
+//            returnStdout: true
+//        ).trim()
     }
 }
 
