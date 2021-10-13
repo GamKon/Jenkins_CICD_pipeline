@@ -28,7 +28,7 @@ pipeline {
         stage("build docker image") {
             when {
                 expression {
-                    BRANCH_NAME == "main"
+                    BRANCH_NAME == BRANCH_TO_DEPLOY
                 }
             }
             steps {
@@ -41,7 +41,7 @@ pipeline {
         stage("provision server") {
             when {
                expression {
-                    BRANCH_NAME == "main"
+                    BRANCH_NAME == BRANCH_TO_DEPLOY
                 }
             }
             environment {
@@ -60,7 +60,7 @@ pipeline {
         stage("deploy app") {
             when {
                 expression {
-                    BRANCH_NAME == "main"
+                    BRANCH_NAME == BRANCH_TO_DEPLOY
                 }
             }
             steps {
