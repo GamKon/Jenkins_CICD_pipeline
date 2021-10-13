@@ -56,7 +56,7 @@ pipeline {
                 }
             }
         }
-        stage("deploy app")} {
+        stage("deploy app") {
             when {
                 expression {
                     BRANCH_NAME == "main"
