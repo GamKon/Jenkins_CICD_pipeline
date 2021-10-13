@@ -6,7 +6,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "main"
+        BRANCH_TO_DEPLOY = "feature/activate_TF_step"
     }
     stages {
         stage("init") {
