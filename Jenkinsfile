@@ -47,7 +47,7 @@ pipeline {
         stage("provision_server") {
             when {
                expression {
-                    BRANCH_NAME != BRANCH_TO_DEPLOY
+                    BRANCH_NAME == BRANCH_TO_DEPLOY
                 }
             }
             environment {
