@@ -45,6 +45,8 @@ pipeline {
                 AWS_ACCESS_KEY_ID = credentials("jenkins-aws-access-key-id")
                 AWS_SECRET_ACCESS_KEY = credentials("jenkins-aws-secret-access-key-id")
                 TF_VAR_project_environment = "Test"
+                TF_VAR_region_project_in   = "ca-central-1"
+                TF_VAR_az_project_in       = "ca-central-1a"
             }
             steps {
                 script {

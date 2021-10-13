@@ -16,11 +16,11 @@ subnet_cidr_block       = "192.168.1.0/24"
 env_prefix              = "Dev"
 project_name            = "Jenkins-CICD-pipeline"
 project_owner           = "GamKon"
-project_environment     = "Dev"
+project_environment     = "PROD"
 
 
 tags_common = {
   Owner       = "GamKon"
   Project     = "Jenkins-CICD-pipeline"
-  Environment = "Dev"
+#  Environment = "Dev"
 }
