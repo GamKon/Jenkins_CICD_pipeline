@@ -21,6 +21,6 @@ variable "tags_common" {
   default = {
     Owner       = "GamKon"
     Project     = "Project"
-    Environment = "Dev"
+#    Environment = "Env"
   }
 }
