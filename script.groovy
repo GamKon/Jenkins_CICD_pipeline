@@ -22,6 +22,19 @@ def buildImage() {
     }
 } 
 
+def runTerraform() {
+    dir("terraform") {
+        sh "terraform init"
+        sh "terraform apply --auto-approve"
+        EC2_PUBLIC_IP = sh(
+            script: 'terraform output Server-1-public-IP',
+            returnStdout: true
+        ).trim()
+    }
+}
+
+
+
 def deployApp() {
     echo "_____________________________________________________"
     
