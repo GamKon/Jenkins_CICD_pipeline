@@ -17,7 +17,7 @@ pipeline {
         stage("build jar") {
             steps {
                 script {
-                    ext_gv_scripts.buildJar()
+//                    ext_gv_scripts.buildJar()
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 script {
-                    ext_gv_scripts.buildImage()
+//                    ext_gv_scripts.buildImage()
                 }
             }
         }
