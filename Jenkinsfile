@@ -64,11 +64,11 @@ pipeline {
             }
         }
         stage("deploy app") {
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            }
+//            when {
+//                expression {
+//                    BRANCH_NAME == "main"
+//                }
+//            }
             steps {
                 script {
                     echo "_____________________________________________________"
