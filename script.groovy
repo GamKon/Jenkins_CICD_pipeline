@@ -41,9 +41,9 @@ def deployApp() {
     echo 'deploying the application to EC2...'
     echo "EC2 piblic IP: $EC2_PUBLIC_IP"
     def docker_command = "docker run -p 8080:8080 -d gamkon-repo:jma-1.0"
-// ${APP_IMAGE_NAME}"
+// ${APP_IMAGE_NAME}"   ${EC2_PUBLIC_IP}
     sshagent({'key_for_ec2'}) {
-        sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} ${docker_command}"
+        sh "ssh -o StrictHostKeyChecking=no ec2-user@15.223.63.162 ${docker_command}"
     }
 } 
 
