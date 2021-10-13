@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 def APP_IMAGE_NAME = "java-maven-app:1.0"
+def EC2_PUBLIC_IP = "35.182.226.1"
 
 def buildJar() {
     echo "_____________________________________________________"
@@ -29,7 +30,7 @@ def runTerraform() {
     dir("terraform") {
         sh "terraform init"
         sh "terraform apply --auto-approve"
-//        EC2_PUBLIC_IP = sh(
+//        $EC2_PUBLIC_IP = sh(
             script: 'terraform output Server-1-public-IP',
             returnStdout: true
         ).trim()
@@ -39,7 +40,7 @@ def runTerraform() {
 def deployApp() {
     echo "_____________________________________________________"
     echo 'deploying the application to EC2...'
-//    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
+/*    echo "EC2 piblic IP: $EC2_PUBLIC_IP"*/
     def docker_command = "docker run -p 8080:8080 -d gamkon-repo:jma-1.0"
 // ${APP_IMAGE_NAME}"   
 // ${EC2_PUBLIC_IP}
