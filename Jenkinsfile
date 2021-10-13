@@ -48,7 +48,7 @@ pipeline {
                 script {
 //                    ext_gv_scripts.deployApp()
                     dir("terraform") {
-                        sh echo "$AWS_ACCESS_KEY_ID     -----     $AWS_SECRET_ACCESS_KEY"
+                        sh "echo $AWS_ACCESS_KEY_ID     -----     $AWS_SECRET_ACCESS_KEY"
                         sh "terraform init"
                         sh "terraform apply --auto-approve"
                         EC2_PUBLIC_IP = sh(
