@@ -17,6 +17,7 @@ pipeline {
         stage("build jar") {
             steps {
                 script {
+                    echo "buildJar!!!!!!!!!!!!!"
 //                    ext_gv_scripts.buildJar()
                 }
             }
@@ -29,6 +30,7 @@ pipeline {
             }
             steps {
                 script {
+                    echo "buildImage!!!!!!!!!!!!!"
 //                    ext_gv_scripts.buildImage()
                 }
             }
