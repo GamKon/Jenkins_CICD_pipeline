@@ -37,8 +37,8 @@ def runTerraform() {
 
 def deployApp() {
     echo "_____________________________________________________"
-    
-    echo 'deploying the application...'
+    echo 'deploying the application to EC2...'
+                    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
 } 
 
 return this

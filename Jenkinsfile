@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage("provision server") {
+        stage("provision_server") {
             when {
                expression {
                     BRANCH_NAME == BRANCH_TO_DEPLOY
@@ -57,7 +57,7 @@ pipeline {
                 }
             }
         }
-        stage("deploy app") {
+        stage("deploy_app") {
             when {
                 expression {
                     BRANCH_NAME == BRANCH_TO_DEPLOY
@@ -65,12 +65,8 @@ pipeline {
             }
             steps {
                 script {
-//                    ext_gv_scripts.deployApp()                    
-                    echo "_____________________________________________________"
-                    echo 'deploying the application to EC2...'
-                    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
+                    ext_gv_scripts.deployApp()                    
                 }
-
             }
         }
     }   
