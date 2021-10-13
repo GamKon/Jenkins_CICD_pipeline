@@ -1,5 +1,5 @@
 pipeline {
-    agent dev
+    agent {dev}
     tools {
         maven 'Maven'
     }
@@ -55,7 +55,7 @@ pipeline {
                     }
                 }
             }
-        
+        }
         stage("deploy app")} {
             when {
                 expression {
