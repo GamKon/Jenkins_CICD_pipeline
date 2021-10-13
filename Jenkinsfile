@@ -31,7 +31,32 @@ pipeline {
                 }
             }
         }
-        stage("deploy") {
+        stage("provision server") {
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            }
+            environment {
+                AWS_ACCESS_KEY_ID = credentials("jenkins-aws-access-key-id")
+                AWS_SECRET_ACCESS_KEY = credentials("jenkins-aws-secret-access-key-id")
+                TF_VAR_project_environment = "Test"
+            }
+            steps {
+                script {
+//                    ext_gv_scripts.deployApp()
+                    dir("terraform") {
+                        sh "terraform init"
+                        sh "terraform apply --auto-approve"
+                        EC2_PUBLIC_IP = sh(
+                            script: "terraform output Server-1-public-IP"
+                            returnStdout: true
+                        ).trim()
+                    }
+                }
+            }
+        
+        stage("deploy app")} {
             when {
                 expression {
                     BRANCH_NAME == "main"
@@ -39,8 +64,11 @@ pipeline {
             }
             steps {
                 script {
-                    ext_gv_scripts.deployApp()
+                    echo "_____________________________________________________"
+                    echo 'deploying the application to EC2...'
+                    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
                 }
+
             }
         }
     }   
