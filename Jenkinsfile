@@ -5,6 +5,9 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    environment {
+        BRANCH_TO_DEPLOY = "main"
+    }
     stages {
         stage("init") {
             steps {
