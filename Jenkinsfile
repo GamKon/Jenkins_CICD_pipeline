@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 pipeline {
     agent { 
         label "dev"
@@ -6,7 +7,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "main"
+        BRANCH_TO_DEPLOY = "feature/deploy_to_AWS"
     }
     stages {
         stage("init") {
@@ -18,6 +19,11 @@ pipeline {
             }
         }
         stage("build_jar") {
+            when {
+                expression {
+                    BRANCH_NAME != BRANCH_TO_DEPLOY
+                }
+            }
             steps {
                 script {
 //                    echo "buildJar!!!!!!!!!!!!!"
@@ -28,7 +34,7 @@ pipeline {
         stage("build_docker_image") {
             when {
                 expression {
-                    BRANCH_NAME == BRANCH_TO_DEPLOY
+                    BRANCH_NAME != BRANCH_TO_DEPLOY
                 }
             }
             steps {

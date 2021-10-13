@@ -3,4 +3,5 @@
 
     Builds Java-Maven Docker container app. 
     Pushes the image to my local Nexus and remote DockerHub repositories.
-    Going to use Terraform to provide infrastructure and deploy the app on AWS in the future.
+    Uses Terraform to provide infrastructure on AWS
+    Deploy the app on EC2.

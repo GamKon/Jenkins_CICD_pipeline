@@ -1,3 +1,6 @@
+#!/usr/bin/env groovy
+def APP_IMAGE_NAME = "java-maven-app:1.0"
+
 def buildJar() {
     echo "_____________________________________________________"
     echo "building the jar application..."
@@ -9,11 +12,11 @@ def buildImage() {
     echo "Building&Pushing the docker image..."
 //  Push to dockerhub 
 //temporary turned off to save time
-//    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-//        sh 'docker build -t gamkon61/gamkon-repo:jma-1.0 .'
-//        sh "echo $PASS | docker login -u $USER --password-stdin"
-//        sh 'docker push gamkon61/gamkon-repo:jma-1.0'
-//    }
+    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh 'docker build -t gamkon61/gamkon-repo:jma-1.0 .'
+        sh "echo $PASS | docker login -u $USER --password-stdin"
+        sh 'docker push gamkon61/gamkon-repo:jma-1.0'
+    }
 //  Push to local Nexus repo
     withCredentials([usernamePassword(credentialsId: 'nexus_docker_repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh 'docker build -t nexus-srv:8083/java-maven-app:1.0 .'
@@ -33,12 +36,14 @@ def runTerraform() {
     }
 }
 
-
-
 def deployApp() {
     echo "_____________________________________________________"
     echo 'deploying the application to EC2...'
-                    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
+    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
+    def docker_command = "docker run -p 8080:8080 -d ${APP_IMAGE_NAME}"
+    sshagent({'key_for_ec2'}) {
+        sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} ${docker_command}"
+    }
 } 
 
 return this
