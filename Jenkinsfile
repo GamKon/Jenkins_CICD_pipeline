@@ -32,11 +32,11 @@ pipeline {
             }
         }
         stage("provision server") {
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            }
+//            when {
+//               expression {
+//                    BRANCH_NAME == "main"
+//                }
+//            }
             environment {
                 AWS_ACCESS_KEY_ID = credentials("jenkins-aws-access-key-id")
                 AWS_SECRET_ACCESS_KEY = credentials("jenkins-aws-secret-access-key-id")
@@ -50,7 +50,7 @@ pipeline {
                         sh "terraform apply --auto-approve"
                         EC2_PUBLIC_IP = sh(
                             script: "terraform output Server-1-public-IP"
-                            returnStdout: true
+//                            returnStdout: true
                         ).trim()
                     }
                 }
