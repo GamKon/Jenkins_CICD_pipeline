@@ -39,7 +39,7 @@ def runTerraform() {
 def deployApp() {
     echo "_____________________________________________________"
     echo 'deploying the application to EC2...'
-    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
+//    echo "EC2 piblic IP: $EC2_PUBLIC_IP"
     def docker_command = "docker run -p 8080:8080 -d gamkon-repo:jma-1.0"
 // ${APP_IMAGE_NAME}"   ${EC2_PUBLIC_IP}
     sshagent({'key_for_ec2'}) {
