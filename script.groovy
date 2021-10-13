@@ -1,6 +1,5 @@
 #!/usr/bin/env groovy
 def APP_IMAGE_NAME = "java-maven-app:1.0"
-def EC2_PUBLIC_IP = "35.182.226.1"
 
 def buildJar() {
     echo "_____________________________________________________"
