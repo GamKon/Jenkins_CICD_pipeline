@@ -6,6 +6,10 @@ def increaseVersion() {
        -DnewVersion=\\\${parsedVersion.majorVersion}.\
        \\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}. \
        versions:commit'
+    def version_parcer = readFile('pom.xml') =~ '<version>(.+)<version>'
+    def version = version_parcer[0][1]
+    APP_VERSION = "$version-$BUILD_NUMBER"
+    APP_IMAGE_FULL_NAME = "$APP_IMAGE_NAME$APP_VERSION"
 } 
 
 def buildJar() {
@@ -19,9 +23,9 @@ def buildImage() {
     echo "Building&Pushing the docker image..."
 //  Push to dockerhub 
     withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh "docker build -t $APP_IMAGE_NAME ."
+        sh "docker build -t $APP_IMAGE_FULL_NAME ."
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh "docker push $APP_IMAGE_NAME"
+        sh "docker push $APP_IMAGE_FULL_NAME"
     }
 //  Push to local Nexus repo
 //temporary turned off to save time
@@ -54,7 +58,7 @@ def deployApp() {
         sh "echo $PASS | docker login -u $USER --password-stdin"
     }
 
-    def shellCmd = "bash ./docker_ec2_cmds.sh ${APP_IMAGE_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
+    def shellCmd = "bash ./docker_ec2_cmds.sh ${APP_IMAGE_FULL_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
     sshagent(['key_for_ec2']) {

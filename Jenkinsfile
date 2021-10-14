@@ -7,8 +7,8 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "feature/deploy_to_AWS"
-        APP_IMAGE_NAME = "gamkon61/gamkon-repo:$APP_VERSION"
+        BRANCH_TO_DEPLOY = "feature/versioning"
+        APP_IMAGE_NAME = "gamkon61/gamkon-repo:"
         EC2_PUBLIC_IP = "_35.183.109.84"
 
     }
@@ -18,6 +18,13 @@ pipeline {
                 script {
                     echo "$BRANCH_NAME initializing...."
                     ext_gv_scripts = load "script.groovy"
+                }
+            }
+        }
+        stage("build_jar") {
+            steps {
+                script {
+                    ext_gv_scripts.increaseVersion
                 }
             }
         }
