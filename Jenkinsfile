@@ -72,6 +72,9 @@ pipeline {
                     BRANCH_NAME == BRANCH_TO_DEPLOY
                 }
             }
+            environment {
+                DOCKER_CREDS = credentials('docker_hub_credentials')
+            }
             steps {
                 script {
                     ext_gv_scripts.deployApp()                    
