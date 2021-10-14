@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 export IMAGE=$1
 export DOCKER_USER=$2
 export DOCKER_PWD=$3
