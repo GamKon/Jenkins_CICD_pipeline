@@ -40,9 +40,7 @@ def deployApp() {
     echo "waiting for EC2 server to initialize" 
 //    sleep(time: 90, unit: "SECONDS")
     echo "EC2 piblic IP: $EC2_PUBLIC_IP"
-//    def docker_command = "docker run -p 8080:8080 -d $APP_IMAGE_NAME"
     
-
     withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh "echo $PASS | docker login -u $USER --password-stdin"
     }
@@ -51,18 +49,9 @@ def deployApp() {
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
     sshagent(['key_for_ec2']) {
-        sh "pwd"
-        sh "ls -al"
         sh "scp -o StrictHostKeyChecking=no docker_ec2_cmds.sh ${ec2Instance}:/home/ec2-user/"
         sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${ec2Instance}:/home/ec2-user/"
         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
-
-    
-    
-//    sshagent(credentials: ['key_for_ec2']) {
-        
-        
-//        sh "ssh -o StrictHostKeyChecking=no ec2-user@$EC2_PUBLIC_IP ${docker_command}"
     }
 } 
 
