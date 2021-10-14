@@ -1,4 +1,13 @@
 #!/usr/bin/env groovy
+def increaseVersion() {
+    echo "_____________________________________________________"
+    echo "incrementing app version..."
+    sh 'mvn build-helper:parse-version versions:set \
+       -DnewVersion=\\\${parsedVersion.majorVersion}.\
+       \\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}. \
+       versions:commit'
+} 
+
 def buildJar() {
     echo "_____________________________________________________"
     echo "building the jar application..."

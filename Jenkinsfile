@@ -8,7 +8,7 @@ pipeline {
     }
     environment {
         BRANCH_TO_DEPLOY = "feature/deploy_to_AWS"
-        APP_IMAGE_NAME = "gamkon61/gamkon-repo:jma-1.0"
+        APP_IMAGE_NAME = "gamkon61/gamkon-repo:$APP_VERSION"
         EC2_PUBLIC_IP = "_35.183.109.84"
 
     }
