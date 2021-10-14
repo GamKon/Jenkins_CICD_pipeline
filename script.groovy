@@ -2,11 +2,14 @@
 def increaseVersion() {
     echo "_____________________________________________________"
     echo "incrementing app version..."
+// Increment version in pom.xml    
     sh 'mvn build-helper:parse-version versions:set \
 -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\
 \\${parsedVersion.nextIncrementalVersion} versions:commit'
-    def version_parcer = readFile('pom.xml') =~ '<version>(.+)<version>'
+# Parse pom.xml for app version    
+    def version_parcer = readFile('pom.xml') =~ '<version>(.+)</version>'
     def version = version_parcer[0][1]
+#Add Jenkins build number
     APP_VERSION = "$version-$BUILD_NUMBER"
     APP_IMAGE_FULL_NAME = "$APP_IMAGE_NAME$APP_VERSION"
 } 
@@ -14,6 +17,7 @@ def increaseVersion() {
 def buildJar() {
     echo "_____________________________________________________"
     echo "building the jar application..."
+# clean - to always have only one jar file
     sh 'mvn clean package'
 } 
 
