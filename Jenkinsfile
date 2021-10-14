@@ -9,7 +9,7 @@ pipeline {
     environment {
         BRANCH_TO_DEPLOY = "feature/versioning"
         APP_IMAGE_NAME = "gamkon61/gamkon-repo:"
-        EC2_PUBLIC_IP = "_35.183.109.84"
+//        EC2_PUBLIC_IP = "_35.183.109.84"
 
     }
     stages {

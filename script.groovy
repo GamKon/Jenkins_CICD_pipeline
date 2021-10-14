@@ -3,9 +3,7 @@ def increaseVersion() {
     echo "_____________________________________________________"
     echo "incrementing app version..."
 // Increment version in pom.xml    
-    sh 'mvn build-helper:parse-version versions:set \
--DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\
-\\${parsedVersion.nextIncrementalVersion} versions:commit'
+    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit'
 // Parse pom.xml for app version    
     def version_parcer = readFile('pom.xml') =~ '<version>(.+)</version>'
     def version = version_parcer[0][1]
