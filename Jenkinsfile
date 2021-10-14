@@ -8,6 +8,9 @@ pipeline {
     }
     environment {
         BRANCH_TO_DEPLOY = "feature/deploy_to_AWS"
+        APP_IMAGE_NAME = "gamkon61/gamkon-repo:jma-1.0"
+        EC2_PUBLIC_IP = "35.183.109.84"
+
     }
     stages {
         stage("init") {
