@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage("build_jar") {
+        stage("increase_version") {
             steps {
                 script {
                     ext_gv_scripts.increaseVersion
