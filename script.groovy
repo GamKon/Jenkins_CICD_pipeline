@@ -23,18 +23,18 @@ def buildImage() {
     echo "_____________________________________________________"
     echo "Building&Pushing the docker image..."
 //  Push to dockerhub 
-    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh "docker build -t $APP_IMAGE_FULL_NAME ."
-        sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh "docker push $APP_IMAGE_FULL_NAME"
-    }
+//    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+//        sh "docker build -t $APP_IMAGE_FULL_NAME ."
+//        sh "echo $PASS | docker login -u $USER --password-stdin"
+//        sh "docker push $APP_IMAGE_FULL_NAME"
+//    }
 //  Push to local Nexus repo
 //temporary turned off to save time
-//    withCredentials([usernamePassword(credentialsId: 'nexus_docker_repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-//        sh 'docker build -t nexus-srv:8083/java-maven-app:1.0 .'
-//        sh "echo $PASS | docker login -u $USER --password-stdin nexus-srv:8083"
-//        sh 'docker push nexus-srv:8083/java-maven-app:1.0'
-//    }
+    withCredentials([usernamePassword(credentialsId: 'nexus_docker_repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh "docker build -t nexus-srv:8083/$APP_IMAGE_FULL_NAME ."
+        sh "echo $PASS | docker login -u $USER --password-stdin nexus-srv:8083"
+        sh "docker push nexus-srv:8083/$APP_IMAGE_FULL_NAME"
+    }
 } 
 
 def runTerraform() {
