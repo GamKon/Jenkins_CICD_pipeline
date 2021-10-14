@@ -24,7 +24,7 @@ pipeline {
         stage("increase_version") {
             steps {
                 script {
-                    ext_gv_scripts.increaseVersion
+                    ext_gv_scripts.increaseVersion()
                 }
             }
         }
