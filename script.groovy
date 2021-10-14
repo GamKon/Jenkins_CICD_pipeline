@@ -51,8 +51,10 @@ def deployApp() {
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
     sshagent(['key_for_ec2']) {
-        sh "scp -o StrictHostKeyChecking=no ./docker_ec2_cmds.sh ${ec2Instance}:/home/ec2-user/"
-        sh "scp -o StrictHostKeyChecking=no ./docker-compose.yml ${ec2Instance}:/home/ec2-user/"
+        sh "pwd"
+        sh "ls -al"
+        sh "scp -o StrictHostKeyChecking=no docker_ec2_cmds.sh ${ec2Instance}:/home/ec2-user/"
+        sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${ec2Instance}:/home/ec2-user/"
         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
 
     
