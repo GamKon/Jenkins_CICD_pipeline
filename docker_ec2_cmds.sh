@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+echo $1 > IMAGE
+echo $2 > DOCKER_USER
+echo $2 > DOCKER_PWD
 export IMAGE=$1
 export DOCKER_USER=$2
 export DOCKER_PWD=$3
