@@ -38,7 +38,7 @@ def deployApp() {
     echo "_____________________________________________________"
     echo 'deploying the application to EC2...'
     echo "waiting for EC2 server to initialize" 
-    sleep(time: 90, unit: "SECONDS")
+//    sleep(time: 90, unit: "SECONDS")
     echo "EC2 piblic IP: $EC2_PUBLIC_IP"
 //    def docker_command = "docker run -p 8080:8080 -d $APP_IMAGE_NAME"
     
@@ -51,8 +51,8 @@ def deployApp() {
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
     sshagent(['key_for_ec2']) {
-        sh "scp -o StrictHostKeyChecking=no docker_ec2_cmds.sh ${ec2Instance}:/home/ec2-user"
-        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ec2-user"
+        sh "scp -o StrictHostKeyChecking=no ./docker_ec2_cmds.sh ${ec2Instance}:/home/ec2-user/"
+        sh "scp -o StrictHostKeyChecking=no ./docker-compose.yml ${ec2Instance}:/home/ec2-user/"
         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
 
     
