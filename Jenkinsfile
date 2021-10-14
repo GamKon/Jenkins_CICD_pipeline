@@ -43,7 +43,7 @@ pipeline {
         stage("build_docker_image") {
             when {
                 expression {
-                    BRANCH_NAME == BRANCH_TO_DEPLOY
+                    BRANCH_NAME != BRANCH_TO_DEPLOY
                 }
             }
             steps {
