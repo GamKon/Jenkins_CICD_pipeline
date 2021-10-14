@@ -61,7 +61,7 @@ def deployApp() {
         sh "echo $PASS | docker login -u $USER --password-stdin"
     }
 
-    def shellCmd = "bash ./docker_ec2_cmds.sh ${APP_IMAGE_FULL_NAME} ${DOCKER_CREDS_USR} ${DOCKER_CREDS_PSW}"
+    def shellCmd = "bash ./docker_ec2_cmds.sh $APP_IMAGE_FULL_NAME $DOCKER_CREDS_USR $DOCKER_CREDS_PSW"
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
 
     sshagent(['key_for_ec2']) {
