@@ -54,10 +54,7 @@ def deployApp() {
 // wait for a new EC2 finish bootstrapping
 //    sleep(time: 90, unit: "SECONDS")
     echo "EC2 piblic IP: $EC2_PUBLIC_IP"
-    
-//    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-//        sh "echo $PASS | docker login -u $USER --password-stdin"
-//    }
+
 
     def shellCmd = "bash ./docker_ec2_cmds.sh $APP_IMAGE_FULL_NAME $DOCKER_CREDS_USR $DOCKER_CREDS_PSW"
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
