@@ -86,5 +86,12 @@ pipeline {
                 }
             }
         }
+        stage('commit_version_update') {
+            steps{
+                script{
+                    ext_gv_scripts.versionCommit()
+                }
+            }
+        }
     }   
 }
