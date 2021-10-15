@@ -7,10 +7,8 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "feature/versioning"
+        BRANCH_TO_DEPLOY = "main"
         APP_IMAGE_NAME = "gamkon61/gamkon-repo:"
-//        EC2_PUBLIC_IP = "_35.183.109.84"
-
     }
     stages {
         stage("init") {
