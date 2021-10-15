@@ -7,9 +7,9 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        BRANCH_TO_DEPLOY = "feature/deploy_to_AWS"
-        APP_IMAGE_NAME = "gamkon61/gamkon-repo:jma-1.0"
-        EC2_PUBLIC_IP = "_35.183.109.84"
+        BRANCH_TO_DEPLOY = "feature/versioning"
+        APP_IMAGE_NAME = "gamkon61/gamkon-repo:"
+//        EC2_PUBLIC_IP = "_35.183.109.84"
 
     }
     stages {
@@ -18,6 +18,13 @@ pipeline {
                 script {
                     echo "$BRANCH_NAME initializing...."
                     ext_gv_scripts = load "script.groovy"
+                }
+            }
+        }
+        stage("increase_version") {
+            steps {
+                script {
+                    ext_gv_scripts.increaseVersion()
                 }
             }
         }
@@ -76,6 +83,13 @@ pipeline {
             steps {
                 script {
                     ext_gv_scripts.deployApp()                    
+                }
+            }
+        }
+        stage('commit_version_update') {
+            steps{
+                script{
+                    ext_gv_scripts.versionCommit()
                 }
             }
         }
