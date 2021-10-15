@@ -23,13 +23,12 @@ def buildImage() {
     echo "_____________________________________________________"
     echo "Building&Pushing the docker image..."
 //  Push to dockerhub 
-//    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-//        sh "docker build -t $APP_IMAGE_FULL_NAME ."
-//        sh "echo $PASS | docker login -u $USER --password-stdin"
-//        sh "docker push $APP_IMAGE_FULL_NAME"
-//    }
+    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh "docker build -t $APP_IMAGE_FULL_NAME ."
+        sh "echo $PASS | docker login -u $USER --password-stdin"
+        sh "docker push $APP_IMAGE_FULL_NAME"
+    }
 //  Push to local Nexus repo
-//temporary turned off to save time
     withCredentials([usernamePassword(credentialsId: 'nexus_docker_repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh "docker build -t nexus-srv:8083/$APP_IMAGE_FULL_NAME ."
         sh "echo $PASS | docker login -u $USER --password-stdin nexus-srv:8083"
@@ -52,12 +51,13 @@ def deployApp() {
     echo "_____________________________________________________"
     echo 'deploying the application to EC2...'
     echo "waiting for EC2 server to initialize" 
+// wait for a new EC2 finish bootstrapping
 //    sleep(time: 90, unit: "SECONDS")
     echo "EC2 piblic IP: $EC2_PUBLIC_IP"
     
-    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh "echo $PASS | docker login -u $USER --password-stdin"
-    }
+//    withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+//        sh "echo $PASS | docker login -u $USER --password-stdin"
+//    }
 
     def shellCmd = "bash ./docker_ec2_cmds.sh $APP_IMAGE_FULL_NAME $DOCKER_CREDS_USR $DOCKER_CREDS_PSW"
     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
