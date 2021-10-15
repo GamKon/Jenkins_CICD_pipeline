@@ -70,7 +70,7 @@ def deployApp() {
 } 
 
 def versionCommit() {
-    withCredentials([usernamePassword(credentialsId: 't14_ubuntu', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+    withCredentials([usernamePassword(credentialsId: 'github_credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         // git config here for the first time run
                         sh 'git config --global user.email "jenkins@gamkon.com"'
                         sh 'git config --global user.name "jenkins"'
